@@ -1,6 +1,8 @@
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
+# 設定
+color = 1 # 検出する色を指定（1=青,2=緑,3=赤,0=黒）
 
 img = cv2.imread('image1.jpg')
 hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
