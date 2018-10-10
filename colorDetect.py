@@ -41,13 +41,14 @@ image, contours, hierarchy = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN
 print("個数 =",len(contours))
 # 領域の重心を計算
 P = np.empty([len(contours),2])
-print(type(P))
+
 for i in range(len(contours)):
     cnt = contours[i]
     try:
         M = cv2.moments(cnt)
         P[i][0] = int(M['m10'] / M['m00'])
         P[i][1] = int(M['m01'] / M['m00'])
+        plt.subplot(1, 2, 2), plt.text(P[i][0], P[i][1], P[i], color='g')
     except ZeroDivisionError:
         # たまにゼロ割になってしまうケースが有るので対処
         print("ZeroDivisionError!!")
