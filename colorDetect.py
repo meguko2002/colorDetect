@@ -42,19 +42,19 @@ print("個数 =",len(contours))
 # 領域の重心を計算
 P = np.empty([len(contours),2])
 
+fig, (ax1, ax2) = plt.subplots(1, 2)
 for i in range(len(contours)):
     cnt = contours[i]
     try:
         M = cv2.moments(cnt)
         P[i][0] = int(M['m10'] / M['m00'])
         P[i][1] = int(M['m01'] / M['m00'])
-        plt.subplot(1, 2, 2), plt.text(P[i][0], P[i][1], P[i], color='g')
+        ax2.text(P[i][0], P[i][1], P[i], color='g')
     except ZeroDivisionError:
         # たまにゼロ割になってしまうケースが有るので対処
         print("ZeroDivisionError!!")
 
 print(P)
-
-plt.subplot(1,2,1),plt.imshow(cv2.cvtColor(img,cv2.COLOR_BGR2RGB))
-plt.subplot(1,2,2),plt.imshow(cv2.cvtColor(res,cv2.COLOR_BGR2RGB))
+ax1.imshow(cv2.cvtColor(img,cv2.COLOR_BGR2RGB))
+ax2.imshow(cv2.cvtColor(res,cv2.COLOR_BGR2RGB))
 plt.show()
